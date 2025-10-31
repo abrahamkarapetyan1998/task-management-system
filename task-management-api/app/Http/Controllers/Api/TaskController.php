@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Redis;
 
 class TaskController extends Controller
 {
@@ -42,13 +41,14 @@ class TaskController extends Controller
      * Store a newly created resource in storage.
      * @throws ValidationException
      */
-    public function store(Request $request): TaskResource
+    public function store(Request $request)
     {
         $data = $request->all();
 
         $this->taskService->validateAvailability($data['user_id'], $data['start_date'], $data['end_date']);
 
         $task = Task::create($data);
+      
         Cache::put('tasks', TaskResource::collection($task));
 
         return new TaskResource($task);
@@ -67,7 +67,7 @@ class TaskController extends Controller
      * @throws ValidationException
      */
 
-    public function update(Request $request, Task $task): TaskResource
+    public function update(Request $request, Task $task)
     {
         $data = $request->all();
 
@@ -87,8 +87,10 @@ class TaskController extends Controller
 
         $task->update($data);
         $task->save();
+      
+        Cache::forget('tasks');
 
-        return response()->json(new TaskResource($task));
+        return new TaskResource($task);
     }
 
 

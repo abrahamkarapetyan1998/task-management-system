@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {
-    public const collection = [];
+    const collection = [];
 
     /**
      * Transform the resource into an array.
