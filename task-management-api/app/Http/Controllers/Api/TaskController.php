@@ -28,7 +28,6 @@ class TaskController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $filters = $request->all();
-
         if (empty(Cache::has("tasks"))) {
             $tasks = $this->taskService->filterQuery($filters);
             Cache::set('tasks', TaskResource::collection($tasks));
@@ -89,7 +88,7 @@ class TaskController extends Controller
         $task->update($data);
         $task->save();
 
-        return response()->json(new TaskResource($task));
+        return new TaskResource($task);
     }
 
 
