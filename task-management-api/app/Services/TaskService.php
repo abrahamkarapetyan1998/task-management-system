@@ -8,7 +8,6 @@ use Illuminate\Validation\ValidationException;
 
 class TaskService
 {
-
     /**
      * @throws ValidationException
      */

@@ -27,7 +27,7 @@ class AuthСontrollerTest extends TestCase
     /** @test */
     public function register_returns_user_object()
     {
-        $request = $this->json( 'POST', '/api/register', [
+        $request = $this->json('POST', '/api/register', [
             'name' => 'John',
             'email' => 'john@example.com',
             'password' => 'password123',
@@ -46,7 +46,7 @@ class AuthСontrollerTest extends TestCase
     /** @test */
     public function login_returns_token()
     {
-        $request = $this->json( 'POST', '/api/login', [
+        $request = $this->json('POST', '/api/login', [
             'email' => 'test@example.com',
             'password' => 'password',
         ]);
