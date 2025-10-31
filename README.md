@@ -47,3 +47,10 @@ To Run Unit tests, simply run
 ```bash
  php artisan test
 ```
+
+Manager Credentials to login
+
+```bash
+manager@example.com
+password
+```
