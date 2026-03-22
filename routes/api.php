@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
@@ -15,13 +16,17 @@ Route::prefix('auth')->group(function () {
     });
 });
 
-Route::resource('projects', ProjectController::class)
+Route::apiResource('projects', ProjectController::class)
     ->except('edit', 'create')
     ->middleware('auth:sanctum');
 
 Route::post('projects/{project}/assign/{user}', [ProjectController::class, 'assignToUser']);
 
-Route::resource('tasks', TaskController::class)->except('edit', 'create')->middleware('auth:sanctum');
+Route::apiResource('tasks', TaskController::class)
+    ->except('edit', 'create')
+    ->middleware('auth:sanctum');
+
+Route::apiResource('comments', CommentController::class)->except('edit', 'create')->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('projects/{project}/members', [ProjectController::class, 'addMember']);

@@ -30,6 +30,7 @@ class TaskRepository
     public function findOwnedByUserOrFail(int $taskId, int $userId): Task
     {
         return Task::query()
+            ->with(['comments.user'])
             ->whereKey($taskId)
             ->whereHas('project', fn ($query) => $query->where('created_user_id', $userId))
             ->firstOrFail();
